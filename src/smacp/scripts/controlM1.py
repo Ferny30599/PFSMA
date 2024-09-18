@@ -294,23 +294,7 @@ def control():
     uy=-k1*Laplaciana[agente-1].dot(yhpos.T)#+2*k1*(yd-y1h)
     V = ux*math.cos(th1) + uy*math.sin(th1)
     w = -ux*math.sin(th1)/h + uy*math.cos(th1)/h
-    #ux=-k1*(x1h-xd)-k1*(x1h-x2h)-k1*(x1h-x6h)
-    #uy=-k1*(y1h-yd)-k1*(y1h-y2h)-k1*(y1h-y6h)
-    
 
-
-    #Saturacion de salidas en funcion del robot real
-    #if (V>0.5):
-     #   V=0.5
-    #if (V<-0.5):
-     #   V=-0.5
-    #if (w>8.69):
-     #   w=8.68
-    #if (w<-8.69):
-     #   w=-8.68
-    #print("Pos(xh,yh)",(x1h,y1h))  
-    #print("Vel(Lin,Ang)= ",(V,w))
-    #print("Ori(rad)=",th1)
 
 # Funcion de trayectoria deseada
 def trayectoria():
