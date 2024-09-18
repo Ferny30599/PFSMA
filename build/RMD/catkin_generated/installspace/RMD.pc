@@ -1,8 +1,0 @@
-prefix=/home/ferny/smapf/install
-
-Name: RMD
-Description: Description of RMD
-Version: 1.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
