@@ -1,0 +1,8 @@
+prefix=/home/ferny/smapf/install
+
+Name: rmdpf
+Description: Description of rmdpf
+Version: 1.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
