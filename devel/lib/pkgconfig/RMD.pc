@@ -1,0 +1,8 @@
+prefix=/home/ferny/smapf/devel
+
+Name: RMD
+Description: Description of RMD
+Version: 1.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
