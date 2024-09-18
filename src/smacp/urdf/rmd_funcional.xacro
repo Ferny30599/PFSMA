@@ -1,0 +1,381 @@
+<?xml version="1.0"?>
+<robot name="rmd1" xmlns:xacro="http://www.ros.org/wiki/xacro">
+	<xacro:macro name="InerciaRueda">
+    <inertial>
+      <origin
+        xyz="1.97548833374347E-05 -5.93702393741503E-05 0.010581849079838"
+        rpy="0 0 0" />
+      <mass
+        value="0.0108737045107905" />
+      <inertia
+        ixx="1.12084842661512E-06"
+        ixy="4.65069079195102E-10"
+        ixz="-7.72463451002501E-10"
+        iyy="1.12069201644994E-06"
+        iyz="-6.5340739355055E-10"
+        izz="1.51855757742517E-06" />
+    </inertial>
+	</xacro:macro>
+
+  <xacro:macro name="SensorConf">
+    <pose>0 0 0 0 0 0</pose>
+        <visualize>false</visualize>
+        <update_rate>10</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>10</samples>
+              <resolution>1</resolution>
+              <min_angle>-0.261799167</min_angle>
+              <max_angle>0.261799167</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.02</min>
+            <max>4.0</max>
+            <resolution>0.01</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.01</stddev>
+          </noise>
+        </ray>
+  </xacro:macro>
+
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="1.9504E-06 0.015855 0.018767"
+        rpy="1.5708 0 0" />
+      <mass
+        value="0.18623" />
+      <inertia
+        ixx="0.00023598"
+        ixy="1.6952E-09"
+        ixz="-1.4231E-09"
+        iyy="0.00050787"
+        iyz="-1.0088E-05"
+        izz="0.00030832" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://smacp/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://smacp/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="Rueda_Izq">
+    <xacro:InerciaRueda/>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://smacp/meshes/Rueda_Izq.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://smacp/meshes/Rueda_Izq.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Motor_Izq"
+    type="continuous">
+    <origin
+      xyz="-0.05177 -9.5E-05 0.007875"
+      rpy="1.5708 -0.85 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="Rueda_Izq" />
+    <axis
+      xyz="0 0 1" />
+    <dynamics
+      damping="0.0001"
+      friction="0.01" />
+  </joint>
+  <link
+    name="Rueda_Der">
+    <xacro:InerciaRueda/>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://smacp/meshes/Rueda_Der.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://smacp/meshes/Rueda_Der.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Motor_Der"
+    type="continuous">
+    <origin
+      xyz="0.05177 -9.5E-05 0.007875"
+      rpy="1.5708 -0.85 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="Rueda_Der" />
+    <axis
+      xyz="0 0 -1" />
+    <dynamics
+      damping="0.0001"
+      friction="0.01" />
+  </joint>
+<!--:::: COLORES DEL MODELO ::::--> 
+  <gazebo reference="Rueda_Izq">
+ 	<material>Gazebo/Red</material>
+  </gazebo>
+  <gazebo reference="Rueda_Der">
+	<material>Gazebo/Red</material>
+  </gazebo>
+  <gazebo reference="base_link">
+	<material>Gazebo/CoM</material>
+  </gazebo>
+  
+  <!--:::: DECLARACION DE NODOS DE CONTROL ::::-->
+  <gazebo>
+    <plugin name="rdif1" filename="libgazebo_ros_diff_drive.so">
+      <rosDebugLevel>Debug</rosDebugLevel>
+      <publishWheelTF>false</publishWheelTF>
+      <robotNamespace>/1</robotNamespace>
+      <publishTf>1</publishTf>
+      <publishWheelJointState>false</publishWheelJointState>
+      <alwaysOn>true</alwaysOn>
+      <updateRate>100</updateRate> 
+      <leftJoint>Motor_Izq</leftJoint>
+      <rightJoint>Motor_Der</rightJoint>
+      <wheelSeparation>0.1244</wheelSeparation>
+      <wheelDiameter>0.03</wheelDiameter>
+      <broadcastTF>1</broadcastTF>
+      <wheelTorque>0.1079</wheelTorque>
+      <wheelAcceleration>1</wheelAcceleration>
+      <commandTopic>cmd_vel1</commandTopic>
+      <odometryFrame>odom1</odometryFrame> 
+      <odometryTopic>odom1</odometryTopic> 
+      <robotBaseFrame>base_link</robotBaseFrame>
+    </plugin>
+  </gazebo>
+  
+  <!-- :::::DECLARACION DEL SENSOR 1::::: --> 
+  
+  <joint name="sens_joint_1" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="0.075 0.05 0.025" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="sens_link_1"/>
+  </joint>
+
+  <link name="sens_link_1">
+    <collision>
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 1.5708"/>
+      <geometry>
+        <box size="0.03 0.01 0.02"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="sens_link_1">
+    <sensor type="ray" name="Ultrasonic_sensor_1">
+      <xacro:SensorConf/>
+      <plugin name="gazebo_ros_sensor_controller_1" filename="libgazebo_ros_laser.so">
+        <topicName>/r1/s1</topicName>
+        <frameName>sens_link_1</frameName>
+        <alwaysOn>true</alwaysOn>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+    <!-- :::::DECLARACION DEL SENSOR 2::::: --> 
+  
+    <joint name="sens_joint_2" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="0 0.115 0.025" rpy="0 0 1.5708"/>
+    <parent link="base_link"/>
+    <child link="sens_link_2"/>
+  </joint>
+
+  <link name="sens_link_2">
+    <collision>
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+      <geometry>
+    <box size="0.03 0.01 0.02"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="sens_link_2">
+    <sensor type="ray" name="Ultrasonic_sensor_2">
+      <xacro:SensorConf/>
+      <plugin name="gazebo_ros_sensor_controller_2" filename="libgazebo_ros_laser.so">
+        <topicName>/r1/s2</topicName>
+        <frameName>sens_link_2</frameName>
+        <alwaysOn>true</alwaysOn>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- :::::DECLARACION DEL SENSOR 3::::: --> 
+  
+    <joint name="sens_joint_3" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="-0.075 0.05 0.025" rpy="0 0 3.1416"/>
+    <parent link="base_link"/>
+    <child link="sens_link_3"/>
+  </joint>
+
+  <link name="sens_link_3">
+    <collision>
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+      <geometry>
+    <box size="0.03 0.01 0.02"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="sens_link_3">
+    <sensor type="ray" name="Ultrasonic_sensor_3">
+      <xacro:SensorConf/>
+      <plugin name="gazebo_ros_sensor_controller_3" filename="libgazebo_ros_laser.so">
+        <topicName>/r1/s3</topicName>
+        <frameName>sens_link_3</frameName>
+        <alwaysOn>true</alwaysOn>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- :::::DECLARACION DEL SENSOR 4::::: --> 
+  
+    <joint name="sens_joint_4" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="0.0 -0.0175 0.025" rpy="0 0 -1.5708"/>
+    <parent link="base_link"/>
+    <child link="sens_link_4"/>
+  </joint>
+
+  <link name="sens_link_4">
+    <collision>
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+      <geometry>
+    <box size="0.03 0.01 0.02"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="sens_link_4">
+    <sensor type="ray" name="Ultrasonic_sensor_4">
+      <xacro:SensorConf/>
+      <plugin name="gazebo_ros_sensor_controller_4" filename="libgazebo_ros_laser.so">
+        <topicName>/r1/s4</topicName>
+        <frameName>sens_link_4</frameName>
+        <alwaysOn>true</alwaysOn>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- :::::DECLARACION DEL SENSOR 5::::: --> 
+  
+    <joint name="sens_joint_5" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="0.0548 0.099 0.025" rpy="0 0 0.8726"/>
+    <parent link="base_link"/>
+    <child link="sens_link_5"/>
+  </joint>
+
+  <link name="sens_link_5">
+    <collision>
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+      <geometry>
+    <box size="0.03 0.01 0.02"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="sens_link_5">
+    <sensor type="ray" name="Ultrasonic_sensor_5">
+      <xacro:SensorConf/>
+      <plugin name="gazebo_ros_sensor_controller_5" filename="libgazebo_ros_laser.so">
+        <topicName>/r1/s5</topicName>
+        <frameName>sens_link_5</frameName>
+        <alwaysOn>true</alwaysOn>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+    <!-- :::::DECLARACION DEL SENSOR 6::::: --> 
+  
+    <joint name="sens_joint_6" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="-0.0548 0.099 0.025" rpy="0 0 2.2689"/>
+    <parent link="base_link"/>
+    <child link="sens_link_6"/>
+  </joint>
+
+  <link name="sens_link_6">
+    <collision>
+      <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+      <geometry>
+    <box size="0.03 0.01 0.02"/>
+      </geometry>
+    </collision>
+  </link>
+  
+  <gazebo reference="sens_link_6">
+    <sensor type="ray" name="Ultrasonic_sensor_6">
+      <xacro:SensorConf/>
+      <plugin name="gazebo_ros_sensor_controller_6" filename="libgazebo_ros_laser.so">
+        <topicName>/r1/s6</topicName>
+        <frameName>sens_link_6</frameName>
+        <alwaysOn>true</alwaysOn>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+</robot>

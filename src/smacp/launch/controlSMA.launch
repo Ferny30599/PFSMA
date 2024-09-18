@@ -1,0 +1,22 @@
+<launch>
+    <node pkg="smacp" type="controlM1.py" name="control1"  output="screen">
+    </node>
+
+    <node pkg="smacp" type="controlM2.py" name="control2"  output="screen">
+    </node>
+
+    <node pkg="smacp" type="controlM3.py" name="control3"  output="screen">
+    </node>
+
+    <node pkg="smacp" type="controlM4.py" name="control4"  output="screen">
+    </node>
+
+    <node pkg="smacp" type="controlM5.py" name="control5"  output="screen">
+    </node>
+
+    <node pkg="smacp" type="controlM6.py" name="control6"  output="screen">
+    </node>
+
+    <node pkg="smacp" type="controlM7.py" name="control7"  output="screen">
+    </node>
+</launch>

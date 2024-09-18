@@ -1,0 +1,31 @@
+<launch>
+    <arg name="paused" default="false"/>
+    <arg name="use_sim_time" default="true"/>
+    <arg name="gui" default="true"/>
+    <arg name="headless" default="false"/>
+    <arg name="debug" default="false"/>
+
+    <!-- Cambia el nombre del mundo al que deseas cargar -->
+    <arg name="world_name" default="/worlds/living_room.world"/>
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="debug" value="$(arg debug)" />
+        <arg name="gui" value="$(arg gui)" />
+        <arg name="paused" value="true"/>
+        <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+        <arg name="headless" value="$(arg headless)"/>
+        <arg name="world_name" value="$(arg world_name)"/>
+    </include>
+
+    <arg name="x1" default="0.0"/>
+    <arg name="y1" default="0.0"/>
+    <arg name="z1" default="0.007195"/>
+      
+    <param name="robot1" command="$(find xacro)/xacro '$(find smacp)/urdf/smacp.xacro'" />
+
+    <node name="urdf_spawner1" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" 
+          args="-urdf -model dif1 -param robot1 -x $(arg x1) -y $(arg y1) -z $(arg z1) -Y -1.5707963267949">
+    </node>
+
+
+</launch>

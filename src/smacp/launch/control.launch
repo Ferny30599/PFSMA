@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="smacp" type="c1.py" name="control1"  output="screen">
+    </node> 
+</launch>

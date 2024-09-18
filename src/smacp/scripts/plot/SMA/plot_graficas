@@ -1,0 +1,35 @@
+ruta1=csvread('robot1_cons.csv');
+posx1=ruta1(:,1);
+posy1=ruta1(:,2);
+tiempo1=ruta1(:,3);
+ruta2=csvread('robot2_cons.csv');
+posx2=ruta2(:,1);
+posy2=ruta2(:,2);
+tiempo2=ruta2(:,3);
+ruta3=csvread('robot3_cons.csv');
+posx3=ruta3(:,1);
+posy3=ruta3(:,2);
+tiempo3=ruta3(:,3);
+ruta4=csvread('robot4_cons.csv');
+posx4=ruta4(:,1);
+posy4=ruta4(:,2);
+tiempo4=ruta4(:,3);
+ruta5=csvread('robot5_cons.csv');
+posx5=ruta5(:,1);
+posy5=ruta5(:,2);
+tiempo5=ruta5(:,3);
+ruta6=csvread('robot6_cons.csv');
+posx6=ruta6(:,1);
+posy6=ruta6(:,2);
+tiempo6=ruta6(:,3);
+figure(1);
+plot(posx1,tiempo1,'LineWidth',4,'Color', 'b');
+hold on;
+plot(posx2,tiempo2,'LineWidth',4,'Color', 'r');
+plot(posx3,tiempo3,'LineWidth',4,'Color', 'g');
+plot(posx4,tiempo4,'LineWidth',4,'Color', [1, 0.5, 0]);
+plot(posx5,tiempo5,'LineWidth',4,'Color', [0.5, 0, 0.5]);
+plot(posx6,tiempo6,'LineWidth',4,'Color', [1, 1, 0]);
+
+
+

@@ -1,0 +1,156 @@
+<launch>
+    <arg name="paused" default="false"/>
+    <arg name="use_sim_time" default="true"/>
+    <arg name="gui" default="true"/>
+    <arg name="headless" default="false"/>
+    <arg name="debug" default="false"/>
+
+
+    <arg name="world_name" default="/home/ferny/.gazebo/worlds/empty/floor_white.world"/>
+
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="debug" value="$(arg debug)" />
+        <arg name="gui" value="$(arg gui)" />
+        <arg name="paused" value="true"/>
+        <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+        <arg name="headless" value="$(arg headless)"/>
+        <arg name="world_name" value="$(arg world_name)"/>
+        
+    </include>
+    
+    <!-- Ajustar propiedades del mundo, incluyendo el grid -->
+    <param name="/world_name/grid/create" value="true"/>
+    <param name="/world_name/grid/cell_count" value="26"/>
+    <param name="/world_name/grid/cell_size" value="1.0"/>
+
+    <arg name="x1" default="-1.5"/>
+    <arg name="y1" default="0.0"/>
+    <arg name="z1" default="0.007195"/>
+
+    <arg name="x2" default="-1.5"/>
+    <arg name="y2" default="0.75"/>
+    <arg name="z2" default="0.007195"/>
+
+    <arg name="x3" default="-1.5"/>
+    <arg name="y3" default="1.5"/>
+    <arg name="z3" default="0.007195"/>
+
+    <arg name="x4" default="-1.5"/>
+    <arg name="y4" default="2.25"/>
+    <arg name="z4" default="0.007195"/>
+
+    <arg name="x5" default="-1.5"/>
+    <arg name="y5" default="-2.25"/>
+    <arg name="z5" default="0.007195"/>
+
+    <arg name="x6" default="-1.5"/>
+    <arg name="y6" default="-1.5"/>
+    <arg name="z6" default="0.007195"/>
+
+    <arg name="x7" default="-1.5"/>
+    <arg name="y7" default="-0.75"/>
+    <arg name="z7" default="0.007195"/>
+
+    
+    <!-- Configuraciones para los cubos >
+    <arg name="cube1_x" default="4.0"/>
+    <arg name="cube1_y" default="0.5"/>
+    <arg name="cube1_z" default="0.5"/>
+
+    <arg name="cube2_x" default="6.0"/>
+    <arg name="cube2_y" default="-0.5"/>
+    <arg name="cube2_z" default="0.5"/>
+
+    < ... (otros cubos) ... -->
+
+
+
+
+    <param name="robot1" command="$(find xacro)/xacro '$(find smacp)/urdf/rmd1.xacro'" />
+    <param name="robot2" command="$(find xacro)/xacro '$(find smacp)/urdf/rmd2.xacro'" />
+    <param name="robot3" command="$(find xacro)/xacro '$(find smacp)/urdf/rmd3.xacro'" />
+    <param name="robot4" command="$(find xacro)/xacro '$(find smacp)/urdf/rmd4.xacro'" />
+    <param name="robot5" command="$(find xacro)/xacro '$(find smacp)/urdf/rmd5.xacro'" />
+    <param name="robot6" command="$(find xacro)/xacro '$(find smacp)/urdf/rmd6.xacro'" />
+    <param name="robot7" command="$(find xacro)/xacro '$(find smacp)/urdf/rmd7.xacro'" />
+
+    <node name="urdf_spawner1" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" 
+          args="-urdf -model dif1 -param robot1 -x $(arg x1) -y $(arg y1) -z $(arg z1) -Y -1.5707963267949">
+    </node>
+
+    <node name="urdf_spawner2" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" 
+          args="-urdf -model dif2 -param robot2 -x $(arg x2) -y $(arg y2) -z $(arg z2) -Y -1.5707963267949">
+    </node>
+
+    <node name="urdf_spawner3" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" 
+          args="-urdf -model dif3 -param robot3 -x $(arg x3) -y $(arg y3) -z $(arg z3) -Y -1.5707963267949">
+    </node>
+
+    <node name="urdf_spawner4" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" 
+          args="-urdf -model dif4 -param robot4 -x $(arg x4) -y $(arg y4) -z $(arg z4) -Y -1.5707963267949">
+    </node>
+
+    <node name="urdf_spawner5" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" 
+          args="-urdf -model dif5 -param robot5 -x $(arg x5) -y $(arg y5) -z $(arg z5) -Y -1.5707963267949">
+    </node>
+
+    <node name="urdf_spawner6" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" 
+          args="-urdf -model dif6 -param robot6 -x $(arg x6) -y $(arg y6) -z $(arg z6) -Y -1.5707963267949">
+    </node>
+
+    <node name="urdf_spawner7" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" 
+          args="-urdf -model dif7 -param robot7 -x $(arg x7) -y $(arg y7) -z $(arg z7) -Y -1.5707963267949">
+    </node>
+    <!--Cilindros 
+     <node name="spawn_cylinder_obstacle" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+          args="-sdf -model cylinder_obstacle -x 1 -y 1 -z 0.3 -file $(find smacp)/urdf/cilind_obstacle.sdf">
+    </node>   
+
+     <node name="spawn_cylinder_obstacle2" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+          args="-sdf -model cylinder_obstacle2 -x 1 -y -1 -z 0.3 -file $(find smacp)/urdf/cilind_obstacle.sdf">
+    </node>
+
+     <node name="spawn_cylinder_obstacle3" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+          args="-sdf -model cylinder_obstacle3 -x 3.5 -y 0 -z 0.3 -file $(find smacp)/urdf/cilind_obstacle.sdf">
+    </node> -->    
+    <!--Rectangulos paredes-->
+      <node name="spawn_cube_obstacle" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+          args="-sdf -model cube_obstacle -x 1.0 -y 1.65 -z 0.15 -R 0 -P 0 -Y 1.57079 -file $(find smacp)/urdf/rect_obstacle.sdf">
+      </node>
+
+    <node name="spawn_cube_obstacle2" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+          args="-sdf -model cube_obstacle2 -x 3.8 -y 0.5 -z 0.15 -file $(find smacp)/urdf/cilind_obstacle.sdf">
+    </node>
+    <node name="spawn_cube_obstacle3" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+          args="-sdf -model cube_obstacle3 -x 6 -y 0 -z 0.15 -R 0 -P 0 -Y 1.5707963267949 -file $(find smacp)/urdf/cube_obstacle_small.sdf">
+    </node>
+
+    <node name="spawn_cube_obstacle4" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+          args="-sdf -model cube_obstacle4 -x 1.9 -y -1.85 -z 0.15 -file $(find smacp)/urdf/rect_obstacle.sdf">
+    </node>
+
+     <!--Cubos
+    <node name="spawn_cube_obstacle" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+          args="-sdf -model cube_obstacle -x 1.5 -y 1 -z 0.15 -file $(find smacp)/urdf/cube_obstacle_small.sdf">
+    </node>
+
+    <node name="spawn_cube_obstacle2" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+          args="-sdf -model cube_obstacle2 -x 4.5 -y -1.15 -z 0.15 -file $(find smacp)/urdf/cube_obstacle_small.sdf">
+    </node>-->
+    <!--
+    <node name="spawn_cube_obstacle3" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+          args="-sdf -model cube_obstacle3 -x 8 -y 0.15 -z 0.15 -file $(find smacp)/urdf/cube_obstacle_small.sdf">
+    </node>
+
+    <node name="spawn_cube_obstacle4" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+          args="-sdf -model cube_obstacle4 -x 8 -y -0.15 -z 0.15 -file $(find smacp)/urdf/cube_obstacle_small.sdf">
+    </node>
+
+    <node name="spawn_cube_obstacle5" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+          args="-sdf -model cube_obstacle5 -x 9 -y 0.5 -z 0.5 -file $(find smacp)/urdf/cube_obstacle.sdf">
+    </node>
+
+    <node name="spawn_cube_obstacle6" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+          args="-sdf -model cube_obstacle6 -x 9 -y -0.5 -z 0.5 -file $(find smacp)/urdf/cube_obstacle.sdf">
+    </node>-->
+</launch>

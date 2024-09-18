@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="obstacle">
+
+  <!-- Incluye la geometría del cubo -->
+  <xacro:include filename="$(find xacro)/xacro/include/obstacle1.xacro" />
+  
+  <link name="obs1">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <xacro:box size="1 1 1" />
+      </geometry>
+      <material name="yellow">
+        <color rgba="1 1 0 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="cube" type="fixed">
+    <parent link="world"/>
+    <child link="obs1"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+    <gazebo reference="obs1">
+ 	<material>Gazebo/Red</material>
+  </gazebo>
+
+</robot>
