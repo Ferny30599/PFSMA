@@ -1,0 +1,8 @@
+prefix=/home/ferny/smacp/install
+
+Name: smacp
+Description: Description of smacp
+Version: 1.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
