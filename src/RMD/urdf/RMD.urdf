@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="RMD">
+  <link
+    name="base_link">
+    <inertial>
+      <!--origin
+        xyz="0.00220064762445978 0.00632001835962821 0.0613684966384051" No funciona, se debe intercambiar el eje y por z -->
+      <origin
+        xyz="0.00220064762445978 -0.0613684966384051 0.00632001835962821"
+        rpy="1.5708 0 0" />
+      <mass
+        value="0.187551651600364" />
+      <inertia
+        ixx="0.000236010414569773"
+        ixy="-1.68515145672754E-09"
+        ixz="1.38056969191708E-09"
+        iyy="0.000507898725164958"
+        iyz="-1.00879770741965E-05"
+        izz="0.000308347840630502" />
+
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://RMD/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+          <texture
+          filename="package://RMD/textures/textura.jpg" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://RMD/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="Rueda_Izq">
+    <inertial>
+      <origin
+        xyz="1.9755E-05 -5.937E-05 0.010582"
+        rpy="0 0 0" />
+      <mass
+        value="0.010874" />
+      <inertia
+        ixx="1.1208E-06"
+        ixy="4.6507E-10"
+        ixz="-7.7246E-10"
+        iyy="1.1207E-06"
+        iyz="-6.5341E-10"
+        izz="1.5186E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://RMD/meshes/Rueda_Izq.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://RMD/meshes/Rueda_Izq.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Motor_Izq"
+    type="continuous">
+    <origin
+      xyz="-0.049569 -0.10759 -0.0043137"
+      rpy="1.5708 -0.86735 -1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="Rueda_Izq" />
+    <axis
+      xyz="0 0 1" />
+    <dynamics
+      damping="0.0001"
+      friction="0.1" />
+  </joint>
+  <link
+    name="Rueda_Der">
+    <inertial>
+      <origin
+        xyz="1.9755E-05 -5.937E-05 0.010582"
+        rpy="0 0 0" />
+      <mass
+        value="0.010874" />
+      <inertia
+        ixx="1.1208E-06"
+        ixy="4.6507E-10"
+        ixz="-7.7246E-10"
+        iyy="1.1207E-06"
+        iyz="-6.5341E-10"
+        izz="1.5186E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://RMD/meshes/Rueda_Der.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+        <texture
+          filename="package://RMD/textures/textura.jpg" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://RMD/meshes/Rueda_Der.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Motor_Der"
+    type="continuous">
+    <origin
+      xyz="0.053971 -0.1076 -0.0044387"
+      rpy="1.5708 -0.86667 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="Rueda_Der" />
+    <axis
+      xyz="0 0 1" />
+    <dynamics
+      damping="0.0001"
+      friction="0.01" />
+  </joint>
+</robot>
